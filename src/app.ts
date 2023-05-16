@@ -11,8 +11,7 @@ app.use(cors());
 app.use(express.json()); //convert rechive data into json
 app.use(express.urlencoded({ extended: true })); //for url encoding
 
-//get app
-// app.get("/api/v1/user", userRoute);
+//use app
 app.use("/api/v1/user", userRoute);
 
 export default app;

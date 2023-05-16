@@ -8,8 +8,8 @@ export const createUser = async(req: Request, res: Response, next: NextFunction)
     res.status(200).json({
         status: "success",
         data: user,
+        
     })
-    next()
 };
 
 export const getUsers = async(req: Request, res: Response, next: NextFunction) => {
