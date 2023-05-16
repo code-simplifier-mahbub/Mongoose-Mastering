@@ -1,7 +1,7 @@
 import { Model, Schema, model } from "mongoose";
-import { IUser, IUserMethods } from "./user.interface";
+import { IUser, IUserMethods, UserModel } from "./user.interface";
 
-type UserModel = Model<IUser, {}, IUserMethods>;
+// type UserModel = Model<IUser, {}, IUserMethods>;
 
   // 2. Create a Schema corresponding to the document interface.
   const userSchema = new Schema<IUser, UserModel ,IUserMethods>({
@@ -57,6 +57,10 @@ type UserModel = Model<IUser, {}, IUserMethods>;
         type: String,
         required: true
     }
+  });
+
+  userSchema.static('getAdminUsers', async function getAdminUsers() {
+    const admins =await this.find({role: 'admin'})
   });
 
   userSchema.method('fullName', function fullName() {

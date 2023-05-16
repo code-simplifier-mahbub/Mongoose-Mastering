@@ -25,5 +25,9 @@ export const createUserToDB =async (payLoad: IUser)
       return user;
     }
 
+    export const getAdminUserFromDB = async () => {
+      const admins = await User.getAdminUsers() ;
+      return admins;
+    }
 
    
