@@ -1,8 +1,10 @@
-import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { Model, Schema, model } from "mongoose";
+import { IUser, IUserMethods } from "./user.interface";
+
+type UserModel = Model<IUser, {}, IUserMethods>;
 
   // 2. Create a Schema corresponding to the document interface.
-  const userSchema = new Schema<IUser>({
+  const userSchema = new Schema<IUser, UserModel ,IUserMethods>({
     id: {
         type: String,
         required: true,
@@ -57,7 +59,11 @@ import { IUser } from "./user.interface";
     }
   });
 
+  userSchema.method('fullName', function fullName() {
+    return this.name.firstName + ' ' + this.name.lastName;
+  });
+
    //now creating model
-   const User = model<IUser>("User", userSchema)
+   const User = model<IUser, UserModel>("User", userSchema)
 
    export default User;

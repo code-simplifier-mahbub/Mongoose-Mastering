@@ -9,29 +9,21 @@ export const createUserToDB =async (payLoad: IUser)
     const user = new User(payLoad)
     await user.save();
     // console.log(user)
+    console.log(user.fullName());
+    
     return user;
     };
 
-    export const getUserFromDB = async() => {
+    export const getUserFromDB = async():Promise<IUser[]> => {
       const users = await User.find();
+      //custom instance method
       return users
+    };
+
+    export const getUserByIdFromDB = async(payLaod: string):Promise<IUser | null> => { //here id get with param payLoad
+      const user =await User.findOne({id: payLaod}, {name: 1, contactNo: 1});
+      return user;
     }
 
 
-    // const user = await new User({ //here User do query and we know that database query on model  and await here for async
-    //   id: "424",
-    //   role: "student",
-    //   password: "testing",
-    //   name: {
-    //     firstName: "Mahbub",
-    //     middleName: "Hasan",
-    //     lastName: "Mahbub"
-    //   },
-    //   dateOfBirth: "january",
-    //   gender: "male",
-    //   email: "hasan@gmail.com",
-    //   contactNo: "33333333",
-    //   emergencyContactNo: "333333333",
-    //   presentAddress: "Bangladesh",
-    //   permanentAddress: "usa",
-    // });
+   
